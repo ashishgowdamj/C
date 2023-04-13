@@ -1,0 +1,128 @@
+#include<stdio.h>
+//#include<conio.h>
+#include<string.h>
+#include<stdlib.h>
+void LENGTH(char *str)
+{
+  int i=0, len=0;
+  while(str[i]!='\0')
+  {
+    len++;
+    i++;
+  }
+  printf("\n Length of %s = %d", str, len);
+}
+
+void CONCAT(char*str1, char*str2)
+{
+  int i=0,j=0;
+  while(str1[i]!='\0')
+  {
+    i++;
+  }
+  while(str2[j]!='\0')
+  {
+    str1[i]=str2[j];
+    i++;
+    j++;
+  }
+  str1[i]='\0';
+  printf("\n Concatenated string = %s", str1);
+}
+
+void EXTRACT(char *str,int pos, int elen)
+{
+  int i = 0, j = 0;
+  char substr[10];
+  for(i = pos-1; i<pos+elen-1; i++)
+  {
+    substr[j]=str[i];
+    j++;
+  }
+  substr[j]='\0';
+  printf("\n Substring = %s", substr);
+}
+
+void REPLACE(char *str, char *sstr, char *rstr, int pos)
+{
+  int i = 0, j = 0, k = 0;
+  char output[50];
+  while (str[i]!='\0')
+  {
+    if (i<pos-1 || i>=pos-1+strlen(sstr))
+    {
+      output[j] = str[i];
+      j++;
+      i++;
+    }
+    else
+    {
+      output[j] = rstr[k];
+      j++;
+      k++;
+      if (k==strlen(rstr))
+      {
+        i = i+strlen(sstr);
+        k = 0;
+      }
+    }
+  }
+  output[j] = '\0';
+  printf("\n Output = %s", output);
+}
+
+void main()
+{
+  char S1[50], S2[50], sstr[50], rstr[50];
+  int len,choice,pos,elen;
+  while(1)
+  {
+    //clrscr();
+    strcpy(S1,"Flowers");
+    strcpy(S2,"are beautiful");
+    printf("\n S1 = %s S2 = %s", S1,S2);
+    printf("\n1.Length 2, Concatenate 3.Extract Substring 4.REPLACE 5.Exit\n");
+    printf("\n Enter your choice:");
+    scanf("%d", &choice);
+    switch(choice)
+    {
+      case 1:
+      {
+        LENGTH(S1);
+      }
+      break;
+      case 2:
+      {
+        CONCAT(S1,S2);
+      }
+      break;
+      case 3:
+      {
+        printf("\n Enter position and the length of substring in S1:");
+        scanf("%d%d",&pos,&elen);
+        EXTRACT(S1,pos,elen);
+      }
+      break;
+      case 4:
+      {
+        printf("\n Enter the substring to be replaced:");
+        scanf("%s", sstr);
+        printf("\n Enter the replacing string:");
+        scanf("%s", rstr);
+        printf("\n Enter the position of the substring:");
+        scanf("%d", &pos);
+        REPLACE(S1, sstr, rstr, pos);
+      }
+      break;
+      case 5:
+      {
+        exit(0);
+      }
+      default:
+      {
+        printf("\n Invalid option");
+      }
+    }
+   // getch();
+  }
+}
