@@ -1,0 +1,21 @@
+#include<stdio.h>
+//#include<conio.h>
+void main()
+{
+int n,i;
+float marks[10],
+tot_marks=0.0,avg_marks=0.0;
+//clrscr();
+printf("\n Enter students count: ");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("\n Enter mark scored by %d student: ",i+1);
+scanf("%f",&marks[i]);
+tot_marks=tot_marks + marks[i];
+}
+avg_marks = tot_marks / n;
+printf("\n Total marks = %0.2f",tot_marks);
+printf("\n Average marks = %0.2f",avg_marks);
+//getch();
+}
