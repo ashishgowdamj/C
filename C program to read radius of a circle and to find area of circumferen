@@ -1,0 +1,15 @@
+#include<stdio.h>
+//#include<conio.h>
+int main()
+{
+int r, PI = 3.14 ;
+double area, circum;
+//clrscr();
+printf("\nenter the radius of circle:");
+scanf("%d", &r);
+area = PI*r*r;
+circum = 2*PI*r;
+printf("\n area of circle = %f",area);
+printf("\n area of circumference = %f" , circum);
+//getch();
+}
