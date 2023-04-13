@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<ctype.h>
+
+int stack[20];
+int top = -1;
+
+void push(int x)
+{
+  stack[++top] = x;
+}
+
+int pop()
+{
+  return stack[top--];
+}
+
+int main()
+{
+  char postfix[20];
+  int A, B, RES, num;
+  printf("Enter the expression: ");
+  scanf("%s", postfix);
+  char *p = postfix; // use a pointer to iterate through the postfix string
+  while(*p != '\0')
+  {
+    if(isdigit(*p))
+    {
+      num = *p - '0'; // convert character to integer value
+      push(num);
+    }
+    else
+    {
+      A = pop();
+      B = pop();
+      switch(*p)
+      {
+        case '+': RES = B + A; break;
+        case '-': RES = B - A; break;
+        case '*': RES = B * A; break;
+        case '/': RES = B / A; break;
+      }
+      push(RES);
+    }
+    p++; // move to the next character in the postfix string
+  }
+  printf("\nThe result of expression = %d\n\n", pop());
+  return 0;
+}
