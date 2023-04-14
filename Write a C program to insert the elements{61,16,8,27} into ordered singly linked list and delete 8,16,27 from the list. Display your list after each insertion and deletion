@@ -1,0 +1,98 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node {
+  int info;
+  struct node *link;
+} NODE;
+
+NODE *header;
+
+void CREATE_HEADER() {
+  header = (NODE*) malloc(sizeof(NODE));
+  header->info = 0;
+  header->link = NULL;
+}
+
+void INSERT_ORDERLIST(int item) {
+  NODE *NEWNODE, *PREVPTR, *CURPTR;
+  NEWNODE = (NODE*) malloc(sizeof(NODE));
+  NEWNODE->info = item;
+  NEWNODE->link = NULL;
+  if(header->link == NULL) {
+    header->link = NEWNODE;
+  }
+  else if(item < header->link->info) {
+    NEWNODE->link = header->link;
+    header->link = NEWNODE;
+  }
+  else {
+    PREVPTR = header->link;
+    CURPTR = PREVPTR->link;
+    while(CURPTR != NULL && item > CURPTR->info) {
+      PREVPTR = CURPTR;
+      CURPTR = CURPTR->link;
+    }
+    PREVPTR->link = NEWNODE;
+    NEWNODE->link = CURPTR;
+  }
+}
+
+void DISPLAY_NODE() {
+  NODE *CURPTR;
+  CURPTR = header->link;
+  printf("\nList: ");
+  while(CURPTR != NULL) {
+    printf("%d -> ", CURPTR->info);
+    CURPTR = CURPTR->link;
+  }
+  printf("NULL");
+}
+
+void DELETE_NODE(int item) {
+  NODE *PREVPTR, *CURPTR;
+  PREVPTR = header;
+  CURPTR = header->link;
+  if(CURPTR == NULL) {
+    printf("\nData not found");
+    return;
+  }
+  if(item == CURPTR->info) {
+    header->link = CURPTR->link;
+    free(CURPTR);
+    return;
+  }
+  while(CURPTR != NULL && CURPTR->info != item) {
+    PREVPTR = CURPTR;
+    CURPTR = CURPTR->link;
+  }
+  if(CURPTR != NULL) {
+    PREVPTR->link = CURPTR->link;
+    free(CURPTR);
+  }
+  else {
+    printf("\nData not found");
+  }
+}
+
+int main() {
+  CREATE_HEADER();
+  printf("***INSERTING 61,16,8,27:***\n");
+  INSERT_ORDERLIST(61);
+  DISPLAY_NODE();
+  INSERT_ORDERLIST(16);
+  DISPLAY_NODE();
+  INSERT_ORDERLIST(8);
+  DISPLAY_NODE();
+  INSERT_ORDERLIST(27);
+  DISPLAY_NODE();
+
+  printf("\n*** DELETE 8,61,27:***\n");
+  DELETE_NODE(8);
+  DISPLAY_NODE();
+  DELETE_NODE(61);
+  DISPLAY_NODE();
+  DELETE_NODE(27);
+  DISPLAY_NODE();
+  return 0;
+}
