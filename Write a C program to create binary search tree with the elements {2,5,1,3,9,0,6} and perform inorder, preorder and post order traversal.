@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define struct for BST node
+typedef struct BST
+{
+  int data;
+  struct BST *lchild, *rchild;
+} node;
+
+// Create a new BST node and return a pointer to it
+node *create_node()
+{
+  node *temp = (node *)malloc(sizeof(node));
+  temp->lchild = NULL;
+  temp->rchild = NULL;
+  return temp;
+}
+
+// Insert a new node into the BST
+void insert(node *root, node *new_node)
+{
+  // If new_node's data is less than the root's data, insert it in the left subtree
+  if (new_node->data < root->data)
+  {
+    if (root->lchild == NULL)
+      root->lchild = new_node;
+    else
+      insert(root->lchild, new_node);
+  }
+  // If new_node's data is greater than the root's data, insert it in the right subtree
+  else if (new_node->data > root->data)
+  {
+    if (root->rchild == NULL)
+      root->rchild = new_node;
+    else
+      insert(root->rchild, new_node);
+  }
+  // If new_node's data is equal to the root's data, do nothing (assuming no duplicates are allowed)
+}
+
+// Traverse the BST in inorder and print the node values
+void inorder(node *temp)
+{
+  if (temp != NULL)
+  {
+    inorder(temp->lchild);
+    printf("%3d", temp->data);
+    inorder(temp->rchild);
+  }
+}
+
+// Traverse the BST in preorder and print the node values
+void preorder(node *temp)
+{
+  if (temp != NULL)
+  {
+    printf("%3d", temp->data);
+    preorder(temp->lchild);
+    preorder(temp->rchild);
+  }
+}
+
+// Traverse the BST in postorder and print the node values
+void postorder(node *temp)
+{
+  if (temp != NULL)
+  {
+    postorder(temp->lchild);
+    postorder(temp->rchild);
+    printf("%3d", temp->data);
+  }
+}
+
+// Main function
+int main()
+{
+  int n = 7, i = 1;
+  node *new_node, *root = NULL;
+
+  printf("\nProgram for binary Search tree");
+
+  // Loop to insert nodes into the BST
+  for (i = 1; i <= n; i++)
+  {
+    new_node = create_node();
+    printf("\nEnter the element: ");
+    scanf("%d", &new_node->data);
+
+    // If BST is empty, new_node becomes the root
+    if (root == NULL)
+      root = new_node;
+    else
+      insert(root, new_node);
+  }
+
+  printf("\nThe Inorder display: ");
+  inorder(root);
+
+  printf("\nThe Preorder display: ");
+  preorder(root);
+
+  printf("\nThe Postorder display: ");
+  postorder(root);
+
+  return 0;
+}
