@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <conio.h>
+
+void LINEAR_SEARCH(int a[], int n, int key) {
+    int i, found = 0;
+    for (i = 0; i < n; i++) {
+        if (key == a[i]) {
+            printf("\n%d found at index %d", key, i);
+            found = 1;
+            break;
+        }
+    }
+    if (found == 0) {
+        printf("\nElement not found in the list");
+    }
+}
+
+void BINARY_SEARCH(int a[], int key, int first, int last) {
+    if (first > last) {
+        printf("\nElement not found in the list");
+        return;
+    }
+    int mid = (first + last) / 2;
+    if (key == a[mid]) {
+        printf("\n%d found at index %d", key, mid);
+    } else if (key < a[mid]) {
+        BINARY_SEARCH(a, key, first, mid - 1);
+    } else {
+        BINARY_SEARCH(a, key, mid + 1, last);
+    }
+}
+
+void DISPLAY_ARRAY(int a[], int n) {
+    int i;
+    printf("\nGiven array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", a[i]);
+    }
+}
+
+int main() {
+    int a[] = {4, 7, 3, 2, 1, 7, 9, 0};
+    int sa[] = {0, 1, 2, 3, 4, 7, 7, 9};
+    int n = sizeof(a) / sizeof(a[0]);
+    int key = 7;
+    int choice;
+
+    clrscr();
+    printf("\n1. Linear Search");
+    printf("\n2. Binary Search");
+    printf("\nEnter your choice: ");
+    scanf("%d", &choice);
+    switch (choice) {
+        case 1: {
+            DISPLAY_ARRAY(a, n);
+            LINEAR_SEARCH(a, n, key);
+            break;
+        }
+        case 2: {
+            DISPLAY_ARRAY(sa, n);
+            BINARY_SEARCH(sa, key, 0, n - 1);
+            break;
+        }
+        default: printf("\nInvalid choice");
+    }
+
+    getch();
+    return 0;
+}
