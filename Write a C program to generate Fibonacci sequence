@@ -1,0 +1,20 @@
+# include<stdio.h>
+//# include<conio.h>
+void main()
+{
+int n,i;
+int F=0,S=1,NXT;
+//clrscr();
+printf("\n Enter series limit : ");
+scanf("%d",&n);
+printf("\n FIBONACCI SERIES \n");
+printf("%d \t %d",F,S);
+for(i=3;i<=n;i++)
+{
+NXT=F+S;
+printf("\t %d",NXT);
+F = S;
+S = NXT;
+}
+//getch();
+}
